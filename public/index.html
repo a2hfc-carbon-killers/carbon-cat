@@ -19,13 +19,7 @@
         var mapOptions = {
           center: theForge, zoom: 15, mapTypeId: google.maps.MapTypeId.HYBRID
         };
-        var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-        window.mapObj = map
-        var marker = new google.maps.Marker({
-          draggable: true,
-          position: theForge,
-          map: map,
-        });
+        window.mapObj = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
       }
       google.maps.event.addDomListener(window, 'load', initialize);
 
@@ -50,26 +44,60 @@
           var valueOfAddress = $('#address').val();
           var query_loc = 'http://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=' + valueOfAddress;
           $.getJSON(query_loc, function(data) {
-            if(data['status'] == 'OK') {
-              alert("Request was good!")
-            } else { 
-              alert(data['status'])
-            };
-            var items = [];
-            $.each(data['results'][0]['address_components'], function(key, val) {
-              items.push('<li id="' + val.types[0] + '">' + val.types[0] + ': ' + val.long_name + '</li>');
+
+            var lat = data['results'][0]['geometry']['location']['lat'];
+            var lng = data['results'][0]['geometry']['location']['lng'];
+
+            theAddressModel = {
+              'formatted_address': data['results'][0]['formatted_address'],
+            }
+            comps = data['results'][0]['address_components'];
+            $.each(comps, function(key, val) {
+              switch(val.types[0]) {
+                case 'street_number':
+                  theAddressModel['street_number'] = val.long_name;
+                  break;
+                case 'route':
+                  theAddressModel['route'] = val.long_name;
+                  break;
+                case 'neighborhood':
+                  theAddressModel['neighborhood'] = val.long_name;
+                  break;
+                case 'locality':
+                  theAddressModel['locality'] = val.long_name;
+                  break;
+                case 'administrative_area_level_2':
+                  theAddressModel['administrative_area_level_2'] = val.long_name;
+                  break;
+                case 'administrative_area_level_1':
+                  theAddressModel['administrative_area_level_1'] = val.long_name;
+                  break;
+                case 'country':
+                  theAddressModel['country'] = val.long_name;
+                  break;
+                case 'postal_code':
+                  theAddressModel['postal_code'] = val.long_name;
+                  break;
+              }
               });
 
-            $.each(data['results'][0]['geometry']['location'], function(key, val) {
-              items.push('<li id="' + key + '">' + key + ' ' + val + '</li>');
-              });
+            theAddressModel['latitude'] = lat
+            theAddressModel['longitude'] = lng
 
             $('<h2>'+data['results'][0]['formatted_address']+'</h2>').appendTo('body')
 
-            $('<ul/>', {
-              'class': 'my-new-list',
-              html: items.join('')
-              }).appendTo('body'); 
+            $.post('/addresses.json', {'address':theAddressModel}, function(address_return) {
+                console.log(address_return);
+            });
+
+            var latlng = new google.maps.LatLng(lat, lng);
+            var marker = new google.maps.Marker({
+              draggable: false,
+              position: latlng,
+              map: window.mapObj
+            });
+            window.mapObj.panTo(latlng); 
+
           });
         });
       });

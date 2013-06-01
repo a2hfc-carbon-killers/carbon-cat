@@ -1,0 +1,80 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Formatted address:</b>
+  <%= @address.formatted_address %>
+</p>
+
+<p>
+  <b>Latitude:</b>
+  <%= @address.latitude %>
+</p>
+
+<p>
+  <b>Longitude:</b>
+  <%= @address.longitude %>
+</p>
+
+<p>
+  <b>Street number:</b>
+  <%= @address.street_number %>
+</p>
+
+<p>
+  <b>Route:</b>
+  <%= @address.route %>
+</p>
+
+<p>
+  <b>Locality:</b>
+  <%= @address.locality %>
+</p>
+
+<p>
+  <b>Administrative area level 2:</b>
+  <%= @address.administrative_area_level_2 %>
+</p>
+
+<p>
+  <b>Administrative area level 1:</b>
+  <%= @address.administrative_area_level_1 %>
+</p>
+
+<p>
+  <b>Country:</b>
+  <%= @address.country %>
+</p>
+
+<p>
+  <b>Postal code:</b>
+  <%= @address.postal_code %>
+</p>
+
+<p>
+  <b>Floor area:</b>
+  <%= @address.floor_area %>
+</p>
+
+<p>
+  <b>Year built:</b>
+  <%= @address.year_built %>
+</p>
+
+<p>
+  <b>Occupancy:</b>
+  <%= @address.occupancy %>
+</p>
+
+<p>
+  <b>Heat:</b>
+  <%= @address.heat %>
+</p>
+
+<p>
+  <b>Wood stove:</b>
+  <%= @address.wood_stove %>
+</p>
+
+
+<%= link_to 'Edit', edit_address_path(@address) %> |
+<%= link_to 'Back', addresses_path %>

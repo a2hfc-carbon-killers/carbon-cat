@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  formatted_address: MyString
+  latitude: 1.5
+  longitude: 1.5
+  street_number: MyString
+  route: MyString
+  locality: MyString
+  administrative_area_level_2: MyString
+  administrative_area_level_1: MyString
+  country: MyString
+  postal_code: MyString
+  floor_area: 1
+  year_built: 1
+  occupancy: 1
+  heat: MyString
+  wood_stove: false
+
+two:
+  formatted_address: MyString
+  latitude: 1.5
+  longitude: 1.5
+  street_number: MyString
+  route: MyString
+  locality: MyString
+  administrative_area_level_2: MyString
+  administrative_area_level_1: MyString
+  country: MyString
+  postal_code: MyString
+  floor_area: 1
+  year_built: 1
+  occupancy: 1
+  heat: MyString
+  wood_stove: false
