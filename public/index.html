@@ -23,24 +23,24 @@
       }
       google.maps.event.addDomListener(window, 'load', initialize);
 
-      var houses = [ [42.295, -83.735], [42.290, -83.730], [42.300, -83.740] ];
-      window.houses = houses;
+      $(document).ready(function() {
 
-      var fun = function() {
-        for(var i = 0 ; i < houses.length ; i++) {
-          var pos = new google.maps.LatLng(window.houses[i][0], window.houses[i][1]);
-          var marker = new google.maps.Marker({
+        $.getJSON('/addresses.json', function(data){
+          $.each(data, function(key,val) {
+            console.log(val)
+            var pos = new google.maps.LatLng(val['latitude'], val['longitude']);
+            var marker = new google.maps.Marker({
               draggable: false,
               position: pos,
               map: window.mapObj,
               icon: "http://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png"
+            });
           });
-        }
-      }
-      google.maps.event.addDomListener(window, 'load', fun);
+        });
+        
 
-      $(document).ready(function() {
         $("#submit").click(function() {
+          $("#addressForm").fadeOut();
           var valueOfAddress = $('#address').val();
           var query_loc = 'http://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=' + valueOfAddress;
           $.getJSON(query_loc, function(data) {
@@ -104,7 +104,7 @@
     </script>
   </head>
   <body>
-      <div id="latlong">
+      <div id="addressForm">
         <label for="address">Enter your address here:</label>
         <input id="address" />
         <button id="submit">Submit Address</button>
