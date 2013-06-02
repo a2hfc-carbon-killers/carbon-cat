@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  q1kwh: 1
+  q2kwh: 1
+  q3kwh: 1
+  q4kwh: 1
+  q1ccf: 1
+  q2ccf: 1
+  q3ccf: 1
+  q4ccf: 1
+  address_id: 1
+
+two:
+  q1kwh: 1
+  q2kwh: 1
+  q3kwh: 1
+  q4kwh: 1
+  q1ccf: 1
+  q2ccf: 1
+  q3ccf: 1
+  q4ccf: 1
+  address_id: 1

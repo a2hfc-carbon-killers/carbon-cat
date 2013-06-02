@@ -1,4 +1,7 @@
 CarbonCat::Application.routes.draw do
+  resources :energybills
+
+
   resources :addresses
 
 

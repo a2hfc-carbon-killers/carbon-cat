@@ -1,0 +1,53 @@
+<%= form_for(@energybill) do |f| %>
+  <% if @energybill.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@energybill.errors.count, "error") %> prohibited this energybill from being saved:</h2>
+
+      <ul>
+      <% @energybill.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :q1kwh %><br />
+    <%= f.number_field :q1kwh %>
+  </div>
+  <div class="field">
+    <%= f.label :q2kwh %><br />
+    <%= f.number_field :q2kwh %>
+  </div>
+  <div class="field">
+    <%= f.label :q3kwh %><br />
+    <%= f.number_field :q3kwh %>
+  </div>
+  <div class="field">
+    <%= f.label :q4kwh %><br />
+    <%= f.number_field :q4kwh %>
+  </div>
+  <div class="field">
+    <%= f.label :q1ccf %><br />
+    <%= f.number_field :q1ccf %>
+  </div>
+  <div class="field">
+    <%= f.label :q2ccf %><br />
+    <%= f.number_field :q2ccf %>
+  </div>
+  <div class="field">
+    <%= f.label :q3ccf %><br />
+    <%= f.number_field :q3ccf %>
+  </div>
+  <div class="field">
+    <%= f.label :q4ccf %><br />
+    <%= f.number_field :q4ccf %>
+  </div>
+  <div class="field">
+    <%= f.label :address_id %><br />
+    <%= f.number_field :address_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

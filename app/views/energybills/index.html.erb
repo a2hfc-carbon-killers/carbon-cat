@@ -1,0 +1,39 @@
+<h1>Listing energybills</h1>
+
+<table>
+  <tr>
+    <th>Q1kwh</th>
+    <th>Q2kwh</th>
+    <th>Q3kwh</th>
+    <th>Q4kwh</th>
+    <th>Q1ccf</th>
+    <th>Q2ccf</th>
+    <th>Q3ccf</th>
+    <th>Q4ccf</th>
+    <th>Address</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @energybills.each do |energybill| %>
+  <tr>
+    <td><%= energybill.q1kwh %></td>
+    <td><%= energybill.q2kwh %></td>
+    <td><%= energybill.q3kwh %></td>
+    <td><%= energybill.q4kwh %></td>
+    <td><%= energybill.q1ccf %></td>
+    <td><%= energybill.q2ccf %></td>
+    <td><%= energybill.q3ccf %></td>
+    <td><%= energybill.q4ccf %></td>
+    <td><%= energybill.address_id %></td>
+    <td><%= link_to 'Show', energybill %></td>
+    <td><%= link_to 'Edit', edit_energybill_path(energybill) %></td>
+    <td><%= link_to 'Destroy', energybill, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Energybill', new_energybill_path %>

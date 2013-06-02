@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130602152220) do
+ActiveRecord::Schema.define(:version => 20130602170825) do
 
   create_table "addresses", :force => true do |t|
     t.string   "formatted_address"
@@ -32,6 +32,20 @@ ActiveRecord::Schema.define(:version => 20130602152220) do
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
     t.string   "neighborhood"
+  end
+
+  create_table "energybills", :force => true do |t|
+    t.integer  "q1kwh"
+    t.integer  "q2kwh"
+    t.integer  "q3kwh"
+    t.integer  "q4kwh"
+    t.integer  "q1ccf"
+    t.integer  "q2ccf"
+    t.integer  "q3ccf"
+    t.integer  "q4ccf"
+    t.integer  "address_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end
