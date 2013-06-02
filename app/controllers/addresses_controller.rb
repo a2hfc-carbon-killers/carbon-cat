@@ -42,6 +42,23 @@ class AddressesController < ApplicationController
   def create
     @address = Address.new(params[:address])
 
+    split_url = ENV['CLEARDB_DATABASE_URL'].gsub(/mysql:\/\//,'').split('@')
+    credentials = split_url[0].split(':')
+    db_location = split_url[1].split('/')
+    client = Mysql2::Client.new(
+      :username=>credentials[0],
+      :password=>credentials[1],
+      :host=>db_location[0],
+      :database=>db_location[1].split('?')[0])
+
+    route = @address.route.gsub(/Drive/,'').gsub(/Street/,'').gsub(/Place/,'').gsub(/Avenue/,'').gsub(/Trail/,'')
+    query = "select Mst_SummaryResYearBuilt,Mst_SummaryResFloorArea from assessordata where Mst_PropAddressStreet like '%#{route}%' and Mst_PropAddressNumber='#{@address.street_number}'"
+    puts query
+    assesor_result = client.query(query)
+
+    @address.year_built = assesor_result.first ? assesor_result.first['Mst_SummaryResYearBuilt'].to_i : 0
+    @address.floor_area = assesor_result.first ? assesor_result.first['Mst_SummaryResFloorArea'].to_i : 0 
+
     respond_to do |format|
       if @address.save
         format.html { redirect_to @address, notice: 'Address was successfully created.' }

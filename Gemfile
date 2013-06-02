@@ -13,6 +13,8 @@ group :production do
   gem 'pg'
 end
 
+gem 'mysql2'
+
 group :test do
   gem 'rspec-rails', '>= 2.0'
 end
