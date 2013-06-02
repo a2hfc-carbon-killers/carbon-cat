@@ -25,6 +25,7 @@
       google.maps.event.addDomListener(window, 'load', initialize);
 
       $(document).ready(function() {
+        $('#info-overlay').fadeOut();
 
         $.getJSON('/addresses.json', function(data){
           $.each(data, function(key,val) {
@@ -85,38 +86,33 @@
             theAddressModel['latitude'] = lat
             theAddressModel['longitude'] = lng
 
-            $('<h2>'+data['results'][0]['formatted_address']+'</h2>').appendTo('body')
+            $('<h2>'+data['results'][0]['formatted_address']+'</h2>').appendTo('body');
 
              $.post('/addresses.json', {'address':theAddressModel}, function(address_return) {
-                            console.log(address_return);
-			var address_return; 
-				address_return['formatted_address'] = "stuff and such";
-				address_return['floor_area'] = 1234;
-				address_return['heat'] = Y;
-				address_return['occupancy'] = 2;
+                 console.log(address_return);
+                $('#info-overlay').fadeIn();
+                $('#display_address').html('<p>'+address_return['formatted_address']+'</p>');
+                $('#floor_area').html('<p>'+address_return['floor_area']+'</p>');
+                //$('#heat').val(address_return['heat']);
+                //$('#occupancy').val(address_return['occupancy']);
+                $('#yearbuilt').html('<p>'+address_return['year_built']+'</p>');
 
-				$('#display_address').append(address_return['formatted_address']);
-				$('#floor_area').append(address_return['floor_area']);
-				$('#heat').append(address_return['heat']);
-				$('#occupancy').append(address_return['occupancy']);
-				$('#year_built').append(address_return['year_built']);
-
-            var latlng = new google.maps.LatLng(lat, lng);
-            var marker = new google.maps.Marker({
-              draggable: false,
-              position: latlng,
-              map: window.mapObj
+                var latlng = new google.maps.LatLng(lat, lng);
+                var marker = new google.maps.Marker({
+                  draggable: false,
+                  position: latlng,
+                  map: window.mapObj
+                  });
+                window.mapObj.panTo(latlng); 
+             });
             });
-            window.mapObj.panTo(latlng); 
-
           });
         });
-      });
     </script>
   </head>
   <body>
       <div id="addressForm">
-        <label for="address">Enter your address here::</label>
+        <label for="address">Enter your address here:</label>
         <input id="address" />
         <button id="submit">Submit Address</button>
       </div>
@@ -128,6 +124,9 @@
         <div id="floor_area_label">Square feet:</div>
         <div id="floor_area" />
 
+        <label for="yearbuilt">Year:</label>
+        <input id="yearbuilt" />
+
         <label for="heat">Heat:</label>
         <input id="heat" />
 
@@ -138,6 +137,4 @@
         <input id="occupancy" />	
 	  </div>
   </body>
-<script>	document.getElementById("display_address").value="total bullshit";
-</script>
 </html>
