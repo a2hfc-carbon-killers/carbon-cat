@@ -6,7 +6,8 @@
       html { height: 100% }
       body { height: 100%; margin: 0; padding: 0; font-family: sans-serif; }
       input { margin: 15px; width: 40%; }
-      #map-canvas { height: 90%; width: 100%px;}
+      #map-canvas { height: 90%; width: 100%;}
+      #info-overlay { height: 90%; width: 90%; background-color: #FFF; opacity: 0.90; position: absolute; top:0px; left:0px; z-index: 1; }
     </style>
     <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
     <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
@@ -38,6 +39,7 @@
           });
         });
         
+		
         $("#submit").click(function() {
           $("#addressForm").fadeOut();
           var valueOfAddress = $('#address').val();
@@ -85,9 +87,19 @@
 
             $('<h2>'+data['results'][0]['formatted_address']+'</h2>').appendTo('body')
 
-            $.post('/addresses.json', {'address':theAddressModel}, function(address_return) {
-                console.log(address_return);
-            });
+             $.post('/addresses.json', {'address':theAddressModel}, function(address_return) {
+                            console.log(address_return);
+			var address_return; 
+				address_return['formatted_address'] = "stuff and such";
+				address_return['floor_area'] = 1234;
+				address_return['heat'] = Y;
+				address_return['occupancy'] = 2;
+
+				$('#display_address').append(address_return['formatted_address']);
+				$('#floor_area').append(address_return['floor_area']);
+				$('#heat').append(address_return['heat']);
+				$('#occupancy').append(address_return['occupancy']);
+				$('#year_built').append(address_return['year_built']);
 
             var latlng = new google.maps.LatLng(lat, lng);
             var marker = new google.maps.Marker({
@@ -104,10 +116,28 @@
   </head>
   <body>
       <div id="addressForm">
-        <label for="address">Enter your address here:</label>
+        <label for="address">Enter your address here::</label>
         <input id="address" />
         <button id="submit">Submit Address</button>
       </div>
-      <div id="map-canvas" />
+      <div id="map-canvas"></div>
+	  <div id="info-overlay">
+        <div id="display_address_label">For address:</div>
+        <div id="display_address" />
+
+        <div id="floor_area_label">Square feet:</div>
+        <div id="floor_area" />
+
+        <label for="heat">Heat:</label>
+        <input id="heat" />
+
+        <label for="occupancy">Number of people:</label>
+        <input id="occupancy" />
+
+        <label for="occupancy">Wood stove:</label>
+        <input id="occupancy" />	
+	  </div>
   </body>
+<script>	document.getElementById("display_address").value="total bullshit";
+</script>
 </html>
