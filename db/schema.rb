@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130601194822) do
+ActiveRecord::Schema.define(:version => 20130602152220) do
 
   create_table "addresses", :force => true do |t|
     t.string   "formatted_address"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(:version => 20130601194822) do
     t.boolean  "wood_stove"
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
+    t.string   "neighborhood"
   end
 
 end
